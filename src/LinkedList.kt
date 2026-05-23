@@ -41,46 +41,192 @@ class LinkedList<T : Comparable<T>> : Listlike<T> {
 
     // Diese Methode soll später ein Element hinten einfügen.
     override fun addLast(data: T) {
-        TODO("Not yet implemented")
+        // Neue Node erstellen
+        val newNode = Node(data)
+
+        // Wenn die Liste leer ist
+        if (first == null) {
+            first = newNode
+        } else {
+
+            // Wir starten vorne in der Liste
+            var current = first
+
+            // Wir laufen bis zum letzten Element
+            while (current!!.next != null) {
+                current = current.next
+            }
+
+            // Neue Node hinten anhängen
+            current.next = newNode
+        }
+
+        // Größe der Liste erhöhen
+        listSize++
     }
 
-    // Diese Methode soll später das erste Element löschen und zurückgeben.
+    // Diese Methode soll das erste Element löschen und zurückgeben.
     override fun removeFirst(): T {
-        TODO("Not yet implemented")
+        // Prüft ob die Liste leer ist
+        if (first == null) {
+            throw NoSuchElementException()
+        }
+
+        // Speichert den Wert vom ersten Element
+        val removedData = first!!.data
+
+        // Das zweite Element wird jetzt das erste
+        first = first!!.next
+
+        // Ein Element weniger in der Liste
+        listSize--
+
+        // Gibt den gelöschten Wert zurück
+        return removedData
     }
 
-    // Diese Methode soll später die Anzahl der Elemente zurückgeben.
+    // Diese Methode soll die Anzahl der Elemente zurückgeben.
     override fun size(): Int {
-        TODO("Not yet implemented")
+        return listSize
     }
 
-    // Diese Methode soll später prüfen, ob ein bestimmtes Element in der Liste ist.
+    // Diese Methode soll  prüfen, ob ein bestimmtes Element in der Liste ist.
     override fun contains(data: T): Boolean {
-        TODO("Not yet implemented")
+        // Wir starten beim ersten Element
+        var current = first
+
+        // Solange noch Elemente existieren
+        while (current != null) {
+
+            // Prüft ob der Wert gefunden wurde
+            if (current.data == data) {
+                return true
+            }
+
+            // Geht zum nächsten Element
+            current = current.next
+        }
+
+        // Wenn nichts gefunden wurde
+        return false
     }
 
-    // Diese Methode soll später prüfen, ob die Liste leer ist.
+    // Diese Methode soll prüfen, ob die Liste leer ist.
     override fun isEmpty(): Boolean {
-        TODO("Not yet implemented")
+       return listSize == 0 // Wenn listSize gleich 0 ist → Liste leer → true  ,Wenn nicht → false
     }
 
-    // Diese Methode soll später ein Element an einer bestimmten Position zurückgeben.
+    // Diese Methode soll ein Element an einer bestimmten Position zurückgeben.
     override fun get(index: Int): T {
-        TODO("Not yet implemented")
+        if (index < 0 || index >= listSize) { // prüft, ob der Index ungültig ist.
+            throw IndexOutOfBoundsException()
+        }
+
+        var current = first // wir starten vorne bei der Liste.
+        var counter = 0
+
+        while (counter < index) { // wir laufen so lange weiter, bis wir bei der gewünschten Position sind.
+            current = current!!.next
+            counter++
+        }
+
+        return current!!.data // gibt den Wert an dieser Position zurück.
     }
 
-    // Diese Methode soll später ein Element an einer bestimmten Position löschen.
+    // Diese Methode soll ein Element an einer bestimmten Position löschen.
     override fun removeAtIndex(index: Int): T {
-        TODO("Not yet implemented")
+        // Prüft ob der Index gültig ist
+        if (index < 0 || index >= listSize) {
+            throw IndexOutOfBoundsException()
+        }
+
+        // Wenn erstes Element gelöscht werden soll
+        if (index == 0) {
+            return removeFirst()
+        }
+
+        // Wir starten vorne
+        var current = first
+
+        // Wir laufen bis zum Element VOR dem Ziel
+        for (i in 0 until index - 1) {
+            current = current!!.next
+        }
+
+        // Speichert die Node die gelöscht werden soll
+        val removedNode = current!!.next
+
+        // Überspringt die gelöschte Node
+        current.next = removedNode!!.next
+
+        // Größe reduzieren
+        listSize--
+
+        // Gibt den gelöschten Wert zurück
+        return removedNode.data
     }
 
-    // Diese Methode soll später ein Element direkt sortiert einfügen.
+    // Diese Methode soll ein Element direkt sortiert einfügen.
     override fun addSorted(data: T) {
-        TODO("Not yet implemented")
+        // Neue Node erstellen
+        val newNode = Node(data)
+
+        // Wenn Liste leer ist
+        if (first == null) {
+            first = newNode
+        }
+
+        // Wenn das neue Element kleiner als das erste ist
+        else if (data < first!!.data) {
+
+            // Neue Node zeigt auf erstes Element
+            newNode.next = first
+
+            // Neue Node wird erstes Element
+            first = newNode
+        }
+
+        else {
+
+            // Wir starten vorne
+            var current = first
+
+            // Sucht richtige Position
+            while (
+                current!!.next != null &&
+                current.next!!.data < data
+            ) {
+                current = current.next
+            }
+
+            // Neue Node dazwischen einfügen
+            newNode.next = current.next
+            current.next = newNode
+        }
+
+        // Größe erhöhen
+        listSize++
     }
 
     // Diese Methode soll später die Liste sortieren und eine neue sortierte Liste zurückgeben.
     override fun sort(): Listlike<T> {
-        TODO("Not yet implemented")
+        // Neue leere Liste
+        val sortedList = LinkedList<T>()
+
+        // Startet beim ersten Element
+        var current = first
+
+        // Läuft durch die ganze Liste
+        while (current != null) {
+
+            // Fügt jedes Element sortiert ein
+            sortedList.addSorted(current.data)
+
+            // Geht weiter zum nächsten Element
+            current = current.next
+        }
+
+        // Gibt die sortierte Liste zurück
+        return sortedList
     }
 }
