@@ -229,4 +229,103 @@ class LinkedList<T : Comparable<T>> : Listlike<T> {
         // Gibt die sortierte Liste zurück
         return sortedList
     }
+
+    // O(n)
+// Prüft, ob mindestens ein Element die Bedingung erfüllt.
+    override fun any(condition: (T) -> Boolean): Boolean {
+
+        // Wir starten beim ersten Element der Liste.
+        var current = first
+
+        // Solange current nicht null ist, gibt es noch ein Element.
+        while (current != null) {
+
+            // Hier wird die Bedingung auf das aktuelle Element angewendet.
+            // Beispiel: condition("Klaus") prüft dann z.B. startsWith("K").
+            if (condition(current.data)) {
+
+                // Wenn ein Element passt, können wir direkt true zurückgeben.
+                return true
+            }
+
+            // Wir gehen zum nächsten Element in der Liste.
+            current = current.next
+        }
+
+        // Wenn kein Element gepasst hat, geben wir false zurück.
+        return false
+    }
+
+
+    // O(n)
+// Prüft, ob alle Elemente die Bedingung erfüllen.
+    override fun all(condition: (T) -> Boolean): Boolean {
+
+        // Wir starten beim ersten Element der Liste.
+        var current = first
+
+        // Solange current nicht null ist, laufen wir durch die Liste.
+        while (current != null) {
+
+            // Wenn ein Element die Bedingung NICHT erfüllt...
+            if (!condition(current.data)) {
+
+                // ...dann können wir direkt false zurückgeben.
+                return false
+            }
+
+            // Wir gehen zum nächsten Element.
+            current = current.next
+        }
+
+        // Wenn kein Element falsch war, erfüllen alle die Bedingung.
+        return true
+    }
+
+    // O(n)
+// Sucht das erste Element, das die Bedingung erfüllt.
+    override fun find(condition: (T) -> Boolean): T? {
+
+        // Wir starten vorne in der Liste.
+        var current = first
+
+        // Wir laufen durch die ganze Liste.
+        while (current != null) {
+
+            // Prüft die Bedingung.
+            if (condition(current.data)) {
+
+                // Gibt das erste passende Element zurück.
+                return current.data
+            }
+
+            // Geht zum nächsten Element.
+            current = current.next
+        }
+
+        // Wenn nichts gefunden wurde.
+        return null
+    }
+
+
+    // O(n)
+// Führt eine Aktion für jedes Element aus.
+    override fun forEach(action: (T) -> Unit) {
+
+        // Wir starten vorne.
+        var current = first
+
+        // Läuft durch die Liste.
+        while (current != null) {
+
+            // Führt die Aktion aus.
+            action(current.data)
+
+            // Geht weiter.
+            current = current.next
+        }
+    }
+
+
+
 }

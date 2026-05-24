@@ -73,6 +73,14 @@
 
     fun sort(): Listlike<T> // O(n^2).  O(n) * O(n) = O(n^2) (Für jedes Element wird möglicherweise die Liste erneut durchsucht.)
 
+     fun any(condition: (T) -> Boolean): Boolean
+
+     fun all(condition: (T) -> Boolean): Boolean
+
+     fun find(condition: (T) -> Boolean): T?
+
+     fun forEach(action: (T) -> Unit)
+
 
 }
 

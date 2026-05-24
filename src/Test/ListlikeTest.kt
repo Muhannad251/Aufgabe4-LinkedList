@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 
 class ListlikeTest {
 
-    private lateinit var list: Listlike
+    private lateinit var list: Listlike<T>
 
     @BeforeEach
     fun setUp() {
