@@ -10,6 +10,28 @@ class LinkedList<T : Comparable<T>> : Listlike<T> {
     private var listSize = 0
 
     // Diese Methode fügt ein neues Element ganz vorne in die Liste ein.
+fun mapToInts(f: (T) -> Int): List<Int> {
+ val list = mutableListOf<Int>()
+ var current = first
+ while (current != null) {
+     list.add(f(current.data))
+     current = current.next
+ }
+ return list
+}
+
+
+    fun toKotlinList(): List<T> {
+       val list = mutableListOf<T>()
+       var current = first
+       while (current != null) {
+           list.add(current.data)
+           current = current.next
+       }
+       return list
+
+   }
+
     override fun addFirst(data: T) {
 
         // Wir bauen eine neue Node mit dem Wert data.

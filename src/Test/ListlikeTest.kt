@@ -2,14 +2,15 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import java.util.NoSuchElementException
 
 class ListlikeTest {
 
-    private lateinit var list: Listlike<T>
+    private lateinit var list: Listlike<String>
 
     @BeforeEach
     fun setUp() {
-        list = TODO("An dieser Stelle soll `list` mit einer konkreten Implementierung initialisiert werden.")
+        list = LinkedList()
     }
 
     @Test
